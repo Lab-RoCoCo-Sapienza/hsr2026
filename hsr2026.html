@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSR 2026 - Humanoid Soccer Robots Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #f8f9fa;
+        }
+        
+        /* Hero Header with animated gradient */
+        header {
+            background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #8b5cf6, #ec4899);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".15" fill="%23ffffff"></path></svg>') center bottom no-repeat;
+            background-size: cover;
+            opacity: 0.5;
+        }
+        
+        header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+            letter-spacing: -0.02em;
+        }
+        
+        header p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.2s backwards;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Modern Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #3b82f6;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Section Styling */
+        section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        section h2 {
+            color: #1e3a8a;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+        }
+        
+        /* Organizer and Speaker Cards */
+        .organizer, .speaker {
+            background: white;
+            padding: 1.8rem;
+            margin: 1.2rem 0;
+            border-radius: 12px;
+            border-left: 5px solid #3b82f6;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .organizer:hover, .speaker:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(59,130,246,0.15);
+            border-left-width: 8px;
+        }
+        
+        .organizer strong, .speaker strong {
+            font-size: 1.2rem;
+            color: #1e3a8a;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .organizer a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .organizer a:hover {
+            color: #1e3a8a;
+        }
+        
+        /* Topics Grid */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .topic-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(59,130,246,0.2);
+        }
+        
+        .topic-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .topic-card strong {
+            font-size: 1.3rem;
+            color: #1e3a8a;
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .topic-card br + text,
+        .topic-card strong + text {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        /* Modern Schedule Table */
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .schedule-table th {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+        
+        .schedule-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .schedule-table tr {
+            transition: background 0.2s ease;
+        }
+        
+        .schedule-table tbody tr:hover {
+            background: #f0f9ff;
+        }
+        
+        .schedule-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .schedule-table td:first-child {
+            font-weight: 600;
+            color: #3b82f6;
+            white-space: nowrap;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+        
+        footer p {
+            margin: 0.5rem 0;
+            opacity: 0.9;
+        }
+        
+        /* Overview highlight box */
+        #overview p {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #3b82f6;
+        }
+        
+        #overview p strong {
+            color: #1e3a8a;
+        }
+        
+        /* Lists styling */
+        ul {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+        
+        ul li {
+            margin: 0.8rem 0;
+            color: #475569;
+        }
+        
+        /* Image Gallery */
+        .robot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .robot-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            aspect-ratio: 4/3;
+            background: #e5e7eb;
+        }
+        
+        .robot-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .robot-image:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(59,130,246,0.25);
+        }
+        
+        .robot-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .robot-image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1.5rem 1rem 0.8rem;
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .robot-image:hover .robot-image-caption {
+            transform: translateY(0);
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        /* Banner Carousel */
+        .banner-carousel {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+        }
+        
+        .banner-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        .banner-slide.active {
+            opacity: 1;
+        }
+        
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .banner-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 2rem;
+            z-index: 10;
+        }
+        
+        .banner-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .banner-overlay p {
+            font-size: 1rem;
+            opacity: 0.95;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+        
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            nav {
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            nav a {
+                font-size: 0.85rem;
+            }
+            
+            section h2 {
+                font-size: 2rem;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .robot-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HSR 2026</h1>
+        <p>Humanoid Soccer Robots Workshop</p>
+        <p class="subtitle">Full-day workshop at Humanoids 2026 Conference</p>
+    </header>
+
+    <nav>
+        <a href="#overview">Overview</a>
+        <a href="#organizers">Organizers</a>
+        <a href="#topics">Topics</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#attendance">Attendance</a>
+    </nav>
+
+    <section id="overview">
+        <h2>Overview</h2>
+        
+        <!-- Banner Carousel with Robot Images -->
+        <div class="banner-carousel">
+            <div class="banner-slide active">
+                <img src="banner_pictures/Atlas-Robot-Learning-Soccer.gif" alt="Atlas Robot Learning Soccer">
+            </div>
+            <div class="banner-slide">
+                <img src="banner_pictures/booster-robotics-t2-humanoid-robot-kick.gif" alt="Humanoid Robot Kicking">
+            </div>
+            <div class="banner-slide">
+                <img src="banner_pictures/WSKRYF5YGFF67FOJUSKCKATBO4.gif" alt="Robot Soccer Action">
+            </div>
+            <div class="banner-slide">
+                <img src="banner_pictures/giphy.gif" alt="Robot Competition">
+            </div>
+            <div class="banner-slide">
+                <img src="banner_pictures/robot-calciatori.jpg" alt="Soccer Robots Team">
+            </div>
+            <div class="banner-overlay">
+                <h3>Humanoid Soccer Robots Workshop 2026</h3>
+                <p>Advancing the future of autonomous humanoid robotics through soccer</p>
+            </div>
+            <div class="carousel-indicators">
+                <div class="indicator active" onclick="setSlide(0)"></div>
+                <div class="indicator" onclick="setSlide(1)"></div>
+                <div class="indicator" onclick="setSlide(2)"></div>
+                <div class="indicator" onclick="setSlide(3)"></div>
+                <div class="indicator" onclick="setSlide(4)"></div>
+            </div>
+        </div>
+        
+        <p>Robot soccer is a uniquely demanding benchmark for humanoid robotics. This workshop connects the RoboCup community with the broader humanoid robotics, robot learning, control, and embodied-AI communities to examine how these capabilities can be advanced jointly.</p>
+        <p><strong>Expected Attendance:</strong> ~50 participants from academia and industry</p>
+    </section>
+
+    <section id="organizers">
+        <h2>Organizing Committee</h2>
+        <div class="organizer">
+            <strong>Alessandra Rossi</strong> (Primary Contact)<br>
+            University of Naples Federico II and University of Hertfordshire<br>
+            <a href="mailto:alessandra.rossi@unina.it">alessandra.rossi@unina.it</a>
+        </div>
+        <div class="organizer">
+            <strong>Vincenzo Suriani</strong> (Primary Contact)<br>
+            Sapienza University of Rome<br>
+            <a href="mailto:suriani@diag.uniroma1.it">suriani@diag.uniroma1.it</a>
+        </div>
+        <div class="organizer">
+            <strong>Luca Iocchi</strong><br>
+            Sapienza University of Rome<br>
+            <a href="mailto:iocchi@diag.uniroma1.it">iocchi@diag.uniroma1.it</a>
+        </div>
+    </section>
+
+    <section id="topics">
+        <h2>Topics</h2>
+        <div class="topics-grid">
+            <div class="topic-card">
+                <strong>Autonomous Humanoid Soccer</strong><br>
+                Visual perception, localization, game understanding
+            </div>
+            <div class="topic-card">
+                <strong>Humanoid Control</strong><br>
+                Dynamic locomotion, whole-body control, physical interaction
+            </div>
+            <div class="topic-card">
+                <strong>Foundation Models</strong><br>
+                Vision-language-action models, multimodal learning
+            </div>
+            <div class="topic-card">
+                <strong>Multi-Agent System</strong><br>
+                Communication, coordination, semantic representations
+            </div>
+            <div class="topic-card">
+                <strong>Benchmarking</strong><br>
+                Reproducible evaluation, shared datasets, sim-to-real transfer
+            </div>
+            <div class="topic-card">
+                <strong>Robot Safety</strong><br>
+                Real-world deployment, robust execution
+            </div>
+        </div>
+    </section>
+
+    <section id="speakers">
+        <h2>Invited Speakers</h2>
+        <div class="speaker">
+            <strong>Peter Stone</strong> - The University of Texas at Austin & Sony AI
+        </div>
+        <div class="speaker">
+            <strong>Joydeep Biswas</strong> - The University of Texas at Austin
+        </div>
+        <div class="speaker">
+            <strong>Changjiu Zhou</strong> - Singapore Polytechnic
+        </div>
+        <div class="speaker">
+            <strong>Alessandra Rossi</strong> - University of Naples Federico II & University of Hertfordshire
+        </div>
+        <div class="speaker">
+            <strong>Ben Moran & Guy Lever</strong> - Google DeepMind (joint talk)
+        </div>
+        <div class="speaker">
+            <strong>Yan Chang</strong> - NVIDIA (Panel discussion)
+        </div>
+    </section>
+
+    <section id="schedule">
+        <h2>Tentative Programme</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Session</th>
+                    <th>Lead</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08:45-09:00</td>
+                    <td>Registration and informal networking</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>09:00-09:10</td>
+                    <td>Welcome & workshop objectives</td>
+                    <td>Organizers</td>
+                </tr>
+                <tr>
+                    <td>09:10-09:50</td>
+                    <td>Keynote: Robot soccer as grand challenge</td>
+                    <td>Stone & Biswas</td>
+                </tr>
+                <tr>
+                    <td>09:50-10:25</td>
+                    <td>Contributed Papers I: Control, locomotion, perception</td>
+                    <td>4 lightning talks</td>
+                </tr>
+                <tr>
+                    <td>10:25-10:50</td>
+                    <td>Coffee break</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>10:50-11:30</td>
+                    <td>Invited talk</td>
+                    <td>Changjiu Zhou</td>
+                </tr>
+                <tr>
+                    <td>11:30-12:25</td>
+                    <td>Invited talk</td>
+                    <td>Alessandra Rossi</td>
+                </tr>
+                <tr>
+                    <td>12:25-13:40</td>
+                    <td>Lunch break</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>13:40-14:20</td>
+                    <td>Joint invited talk: Learning agile robot soccer</td>
+                    <td>Moran & Lever</td>
+                </tr>
+                <tr>
+                    <td>14:20-15:00</td>
+                    <td>Coffee break & robot demonstrations</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>15:35-16:15</td>
+                    <td>Contributed Papers II: Foundation models, strategy</td>
+                    <td>3 lightning talks</td>
+                </tr>
+                <tr>
+                    <td>16:15-16:50</td>
+                    <td>Panel: Next challenges for humanoid soccer</td>
+                    <td>NVIDIA & panelists</td>
+                </tr>
+                <tr>
+                    <td>16:50-17:30</td>
+                    <td>Interactive roadmap & closing</td>
+                    <td>Organizers</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="gallery">
+        <h2>Humanoid Soccer Robots Gallery</h2>
+        <div class="robot-gallery">
+            <div class="robot-image">
+                <img src="banner_pictures/Atlas-Robot-Learning-Soccer.gif" alt="Atlas Robot Learning Soccer">
+                <div class="robot-image-caption">Atlas Robot Learning Soccer Skills</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/booster-robotics-t2-humanoid-robot-kick.gif" alt="Humanoid Robot Kicking">
+                <div class="robot-image-caption">Humanoid Robot Executing Kick</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/WSKRYF5YGFF67FOJUSKCKATBO4.gif" alt="RoboCup Action">
+                <div class="robot-image-caption">RoboCup Competition Action</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/giphy.gif" alt="Robot Soccer Match">
+                <div class="robot-image-caption">Robot Soccer Match</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/robot-calciatori.jpg" alt="Soccer Robots Team">
+                <div class="robot-image-caption">Humanoid Soccer Robots Team</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/photo_2025-09-02_14-51-22.jpg" alt="Robot Competition">
+                <div class="robot-image-caption">RoboCup Championship</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/a-humanoid-robot-of-the-children-size-league-attempts-a-save-during-the-robocup-2006-football-world-championships-at-the-congres.webp" alt="Robot Goalkeeper">
+                <div class="robot-image-caption">Children Size League - Goalkeeper Save</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/M4NZ3FHAP5GPFCCTZXUPBJNPVU.webp" alt="Humanoid Robot Player">
+                <div class="robot-image-caption">Advanced Humanoid Soccer Robot</div>
+            </div>
+            <div class="robot-image">
+                <img src="banner_pictures/1_GJ7Q4gOLovbvqfsxbhjFVA.avif" alt="Robot Technology">
+                <div class="robot-image-caption">State-of-the-Art Robot Technology</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="attendance">
+        <h2>Participation & Visibility</h2>
+        <p><strong>Target Audience:</strong> Roboticists, AI researchers, machine learning engineers, control systems designers, and embodied intelligence experts from academia and industry.</p>
+        <p><strong>Promotion Strategy:</strong></p>
+        <ul style="margin-left: 2rem;">
+            <li>Mailing lists (AAAI, ACM SIGCHI, IEEE RAS)</li>
+            <li>Academic social networks (LinkedIn, Twitter)</li>
+            <li>Institutional channels & direct invitations</li>
+            <li>Workshop website and social media updates</li>
+        </ul>
+        <p><strong>Post-Workshop:</strong> Special issue in Autonomous Robots journal featuring selected workshop papers.</p>
+    </section>
+
+    <section>
+        <h2>Inclusion & Diversity</h2>
+        <p>The workshop is committed to fostering an inclusive research community with balanced gender representation, diverse scientific expertise, and support for researchers at all career stages. All content will be accessible on mobile devices and shared asynchronously through dedicated platforms (Discord, website).</p>
+    </section>
+
+    <footer>
+        <p><strong>HSR 2026 Workshop</strong></p>
+        <p>Humanoids 2026 Conference</p>
+        <p style="margin-top: 1.5rem; opacity: 0.7;">© 2026 HSR Workshop - For more information, contact the organizers</p>
+    </footer>
+    
+    <script>
+        // Banner Carousel Auto-rotation
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            currentSlide = (index + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        function setSlide(index) {
+            showSlide(index);
+            resetTimer();
+        }
+        
+        // Auto-advance every 4 seconds
+        let slideTimer = setInterval(nextSlide, 4000);
+        
+        function resetTimer() {
+            clearInterval(slideTimer);
+            slideTimer = setInterval(nextSlide, 4000);
+        }
+    </script>
+</body>
+</html>
