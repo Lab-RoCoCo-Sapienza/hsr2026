@@ -387,7 +387,7 @@
         }
         
         /* Overview highlight box */
-        #overview p {
+        #overview p, .submission-details {
             background: white;
             padding: 1.5rem;
             border-radius: 12px;
@@ -400,6 +400,30 @@
             color: #1e3a8a;
         }
         
+        .submission-details p + p {
+            margin-top: 1.2rem;
+        }
+
+        #topics a {
+            color: #2563eb;
+            text-underline-offset: 3px;
+            overflow-wrap: anywhere;
+        }
+
+        #topics a:hover {
+            color: #1e3a8a;
+        }
+
+        .dates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+            gap: 1.5rem;
+        }
+
+        section[id] {
+            scroll-margin-top: 10rem;
+        }
+
         /* Lists styling */
         ul {
             margin-left: 2rem;
@@ -591,24 +615,52 @@
     </header>
 
     <nav>
-        <a href="#overview">Overview</a>
+        <a href="#overview">Objective &amp; Scope</a>
+        <a href="#dates">Important Dates</a>
         <a href="#organizers">Organizers</a>
-        <a href="#topics">Topics</a>
+        <a href="#topics">Submission &amp; Topics</a>
         <a href="#speakers">Speakers</a>
         <a href="#schedule">Schedule</a>
         <a href="#attendance">Attendance</a>
     </nav>
 
     <section id="overview">
-        <h2>Overview</h2>
-        
-        <p>Robot soccer is a uniquely demanding benchmark for humanoid robotics. This workshop connects the RoboCup community with the broader humanoid robotics, robot learning, control, and embodied-AI communities to examine how these capabilities can be advanced jointly.</p>
-        
+        <h2>Objective and Scope</h2>
+
+        <p>Robot soccer is a uniquely demanding benchmark for humanoid robotics: a robot must perceive and localize while moving, maintain balance under contact and uncertainty, execute agile whole-body skills, recover from falls, reason over long horizons, communicate with teammates, and make decisions in a fast, partially observable, adversarial environment. This workshop connects the RoboCup community with the broader humanoid robotics, robot learning, control, and embodied-AI communities to examine how these capabilities can be advanced jointly rather than as isolated modules.</p>
+
+        <p>The scope spans hardware-aware locomotion and manipulation, perception and state estimation, sim-to-real learning, foundation and vision-language-action models, multi-robot coordination, safety, benchmarking, and reproducibility. Particular attention is given to methods that transfer beyond soccer to human-centered applications in warehouses, healthcare, inspection, entertainment, and everyday environments.</p>
+
+        <p>The program combines invited talks, peer-reviewed extended abstracts, short oral presentations, a panel, and an interactive roadmap session. Subject to venue and safety approval, teams are invited to bring robots for live demonstrations or recorded demo presentations. The intended outcome is a shared set of research priorities, benchmark needs, and open challenges supporting measurable progress toward the RoboCup 2050 goal and robust general-purpose humanoids.</p>
+
         <p><strong>Expected Attendance:</strong> ~50 participants from academia and industry</p>
     </section>
 
+    <section id="dates">
+        <h2>Important Dates</h2>
+        <div class="dates-grid">
+            <div class="topic-card">
+                <strong>Submission Deadline</strong>
+                <time datetime="2026-11-13">13 November, 2026</time>
+            </div>
+            <div class="topic-card">
+                <strong>Notification Deadline</strong>
+                <time datetime="2026-11-22">22 November, 2026</time>
+            </div>
+            <div class="topic-card">
+                <strong>Conference Dates</strong>
+                <time datetime="2026-12-06">December 6</time> &ndash; <time datetime="2026-12-09">9, 2026</time>
+            </div>
+            <div class="topic-card">
+                <strong>Workshop Date</strong>
+                <time datetime="2026-12-07">7 December, 2026</time>
+            </div>
+        </div>
+    </section>
+
     <section id="topics">
-        <h2>Topics</h2>
+        <h2>Submission &amp; List of Topics</h2>
+        <p>The workshop is open to a broad audience from academia and industry researching on Autonomous humanoid soccer players, Humanoid control for robot soccer, Foundational models for humanoid soccer robots, Multi-agent communication, and Humanoid robot soccer as a benchmark for embodied intelligence.</p>
         <div class="topics-grid">
             <div class="topic-card">
                 <strong>Autonomous Humanoid Soccer</strong><br>
@@ -634,6 +686,13 @@
                 <strong>Robot Safety</strong><br>
                 Real-world deployment, robust execution
             </div>
+        </div>
+        <div class="submission-details">
+            <p>We invite authors to submit scientific papers ranging from <strong>2 to 6 pages</strong>, with additional space for references and appendices. We accept different types of works, including preliminary findings, case studies, position papers, surveys and cutting-edge research on the workshop topics. Accepted papers are presented in short oral presentations.</p>
+
+            <p>Authors should submit their papers formatted according to the <a href="http://ras.papercept.net/conferences/support/support.php">IEEE two-column format</a>, which is also used for contributions to the main conference. Use the following templates to create the paper and generate or export a PDF file: <a href="https://ras.papercept.net/conferences/support/tex.php">LaTeX</a> or <a href="https://ras.papercept.net/conferences/support/word.php">MS-Word</a>.</p>
+
+            <p>Authors need to submit their PDF via <a href="https://openreview.net/group?id=IEEE.org/Humanoids/2026/HSR">OpenReview</a>. Each paper receives <strong>at least two reviews</strong>. All papers are reviewed using a <strong>single-blind review process</strong>: authors declare their names and affiliations in the manuscript for the reviewers to see, but reviewers do not know each other's identities, nor do the authors receive information about who has reviewed their manuscript.</p>
         </div>
     </section>
 
@@ -682,9 +741,9 @@
 
     <section id="schedule">
         <h2>Tentative Programme</h2>
-        <p>The workshop will be structured as a full-day event featuring three or four invited talks, with speakers from both academia and industry, and two contributed-paper sessions. The paper sessions will cover topics such as perception, locomotion, control, robot learning, multi-agent coordination, foundation models, and benchmarking, with selected contributions presented as lightning talks followed by discussion. The program might include a demonstration session, subject to space availability, and a final panel bringing together academic and industrial perspectives on the future of humanoid robot soccer and general-purpose humanoid robotics.</p>
+        <p>The workshop is structured as a full-day event featuring three or four invited talks, with speakers from both academia and industry, and two contributed-paper sessions. The paper sessions cover topics such as perception, locomotion, control, robot learning, multi-agent coordination, foundation models, and benchmarking, with selected contributions presented as lightning talks followed by discussion. The program might include a demonstration session, subject to space availability, and a final panel bringing together academic and industrial perspectives on the future of humanoid robot soccer and general-purpose humanoid robotics.</p>
         
-        <!-- Detailed schedule will be announced closer to the event -->
+        <!-- Detailed schedule to be announced closer to the event -->
         <!-- <table class="schedule-table">
             <thead>
                 <tr>
@@ -808,19 +867,12 @@
     <section id="attendance">
         <h2>Participation & Visibility</h2>
         <p><strong>Target Audience:</strong> Roboticists, AI researchers, machine learning engineers, control systems designers, and embodied intelligence experts from academia and industry.</p>
-        <p><strong>Promotion Strategy:</strong></p>
-        <ul style="margin-left: 2rem;">
-            <li>Mailing lists (AAAI, ACM SIGCHI, IEEE RAS)</li>
-            <li>Academic social networks (LinkedIn, Twitter)</li>
-            <li>Institutional channels & direct invitations</li>
-            <li>Workshop website and social media updates</li>
-        </ul>
         <p><strong>Post-Workshop:</strong> Special issue in Autonomous Robots journal featuring selected workshop papers.</p>
     </section>
 
     <section>
         <h2>Inclusion & Diversity</h2>
-        <p>The workshop is committed to fostering an inclusive research community with balanced gender representation, diverse scientific expertise, and support for researchers at all career stages. All content will be accessible on mobile devices and shared asynchronously through dedicated platforms (Discord, website).</p>
+        <p>The workshop is committed to fostering an inclusive research community with balanced gender representation, diverse scientific expertise, and support for researchers at all career stages. All content is accessible on mobile devices and shared asynchronously through dedicated platforms (Discord, website).</p>
     </section>
 
     <section id="organizers">
